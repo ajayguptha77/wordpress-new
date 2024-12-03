@@ -24,5 +24,5 @@ jobs:
 
     - name: Set Permissions
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "chmod -R 755 ${WP_PATH} && chown -R www-data:www-data ${WP_PATH}"
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "chmod -R 755 ${{ secrets.EC2_HOST }} && chown -R www-data:www-data ${{ secrets.EC2_HOST }}"
 
