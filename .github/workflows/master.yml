@@ -20,7 +20,7 @@ jobs:
 
     - name: Copy Theme to EC2 Instance
       run: |
-        scp -o StrictHostKeyChecking=no -r ./path-to-your-theme/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:${{ secrets.WP_PATH }}
+        scp -o StrictHostKeyChecking=no -r ./themes/twentytwentyfour/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:${{ secrets.WP_PATH }}
 
     - name: Set Permissions
       run: |
