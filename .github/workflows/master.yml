@@ -1,0 +1,28 @@
+name: Deploy WordPress Theme
+
+on:
+  push:
+    branches:
+      - master  # Adjust to the branch you want to deploy from
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH Agent
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Copy Theme to EC2 Instance
+      run: |
+        scp -o StrictHostKeyChecking=no -r ./path-to-your-theme/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:${{ secrets.WP_PATH }}
+
+    - name: Set Permissions
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "chmod -R 755 ${WP_PATH} && chown -R www-data:www-data ${WP_PATH}"
+
